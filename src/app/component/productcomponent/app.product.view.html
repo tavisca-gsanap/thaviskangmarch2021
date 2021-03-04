@@ -4,6 +4,7 @@
   <tbody>
     <tr>
       <td>
+        <form>
         <div class="container">
           <div class="form-group">
               <label>Product Row Id</label>
@@ -42,6 +43,7 @@
              <input type="button" value="Clear" class="btn btn-warning" (click)="clear()">
           </div>
         </div>
+      </form>
       </td>
       <td>
         <!-- <table class="table table-bordered table-striped">
@@ -84,10 +86,11 @@
              </tr>
            </tbody>
         </table> -->
-        <app-datatable-component [DataSource]="products"
-         (selectRow)="onSelectedProduct($event)"></app-datatable-component>
+        <app-datatable-component [DataSource]="products" [CanDelete]="true" (reorder)="reorderData($event,'ProductRowId')"
+         (selectRow)="onSelectedProduct($event)" (deleteRow)="delete($event)" ></app-datatable-component>
         <br>
-        <app-datatable-component [DataSource]="depts"></app-datatable-component>
+        <app-datatable-component [DataSource]="depts" [CanDelete]="false" (reorder)="reorderData($event,'id')"
+        (selectRow)="onSelectedProduct($event)" ></app-datatable-component>
 
       </td>
     </tr>

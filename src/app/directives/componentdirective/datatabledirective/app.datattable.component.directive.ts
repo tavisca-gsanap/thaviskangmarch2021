@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ProductInfo } from 'src/app/models/app.productinfo.model';
 
 @Component({
   selector: 'app-datatable-component',
@@ -6,7 +7,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class DataTableComponent implements OnInit {
   private _DataSource:Array<any>;
+  private _CanDelete:boolean;
   columnHeaders:Array<string>;
+  reverse:boolean;
 
   // EventEmitter<any>, used to emit an event from component
   // <T> is a generic parameter that represent 'event arguments'
@@ -16,10 +19,18 @@ export class DataTableComponent implements OnInit {
   // listened by parent using $event object
   @Output()
   selectRow:EventEmitter<any>;
+  @Output()
+  deleteRow:EventEmitter<any>;
+  @Output()
+  reorder:EventEmitter<boolean>;
   constructor() {
     this._DataSource = new Array<any>();
+    this._CanDelete = false;
+    this.reverse = false;
     this.columnHeaders = new Array<string>();
     this.selectRow = new EventEmitter<any>();
+    this.deleteRow = new EventEmitter<any>();
+    this.reorder = new EventEmitter<boolean>();
   }
 
   ngOnInit(): void {
@@ -34,8 +45,25 @@ export class DataTableComponent implements OnInit {
   get DataSource():Array<any> {
     return this._DataSource;
   }
+
+  @Input()
+  set CanDelete(value:boolean) {
+    this._CanDelete = value;
+  }
+  get CanDelete():boolean {
+    return this._CanDelete;
+  }
   // a method that will emit event
   onSelectRow(row:any):void {
     this.selectRow.emit(row);
+  }
+
+  ondelete(row:ProductInfo):void{
+    this.deleteRow.emit(row.ProductRowId);
+  }
+  onreorder():void{
+    console.log("directive");
+    console.log(this.reverse);
+    this.reorder.emit(this.reverse);
   }
 }

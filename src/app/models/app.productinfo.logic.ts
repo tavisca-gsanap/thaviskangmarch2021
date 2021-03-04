@@ -22,4 +22,20 @@ export class Logic {
     this.products.push(prd);
     return this.products;
   }
+  deleteProduct(prdRowId:any):Array<ProductInfo> {
+    this.products.forEach((element,index)=>{
+      if(element.ProductRowId==prdRowId) this.products.splice(index,1);
+    });
+    return this.products;
+  }
+  reorder(order:boolean,key:any):Array<ProductInfo> {
+    console.log(order);
+    console.log(key);
+    if(order){
+      return this.products.sort((a, b) => (a[key] > b[key]) ? -1 : 1)
+    }
+    else{
+      return this.products.sort((a, b) => (a[key] > b[key]) ? 1 : -1);
+    }
+  }
 }

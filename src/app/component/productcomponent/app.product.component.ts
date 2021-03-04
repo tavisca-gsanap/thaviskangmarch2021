@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Logic } from "./../../models/app.productinfo.logic";
 import { ProductInfo } from "./../../models/app.productinfo.model";
 import { Categories,Manufacturers } from "./../../models/app.constants";
@@ -11,9 +11,10 @@ import { Categories,Manufacturers } from "./../../models/app.constants";
   selector: 'app-product-component',
   templateUrl: 'app.product.view.html'
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnChanges {
   product:ProductInfo;
   products: Array<ProductInfo>;
+  canDelete:boolean;
   private logic: Logic;
   // store values from constants in the local public properties of the component
   categories = Categories;
@@ -23,12 +24,20 @@ export class ProductComponent implements OnInit {
   constructor() {
     this.product = new ProductInfo(0,'','','','','',0);
     this.products = new Array<ProductInfo>();
+    this.canDelete = false;
     this.logic  =new Logic();
     this.coloumnHeaders = new Array<string>();
     this.depts = new Array<any>();
     this.depts.push({id:10,name:'IT'});
     this.depts.push({id:20,name:'HRD'});
     console.log('Constructor called');
+  }
+
+  // the method will be executed for each change that takes place on the UI
+  // for the data-bpund property. These changes will be received by the
+  // component and then component will decide if the UI changes are needed
+  ngOnChanges():void {
+      console.log(`Value is changed`);
   }
 
   // 1. write the time-consuming logic which we cannot write in constructor
@@ -49,7 +58,16 @@ export class ProductComponent implements OnInit {
     this.product = new ProductInfo(0,'','','','','',0);
   }
   save():void {
-    this.products = this.logic.addProduct(this.product);
+    this.products = this.logic.addProduct(Object.assign({},this.product));
+  }
+  delete(rowNumber:any):void{
+    console.log("delete");
+    this.products = this.logic.deleteProduct(rowNumber);
+  }
+  reorderData(order:any, sortkey:string):void{
+    console.log("order");
+    console.log(order);
+    this.products = this.logic.reorder(order, sortkey);
   }
   getSelectedProduct(prd:ProductInfo):void {
     // Object.assign(target, source)
@@ -60,4 +78,5 @@ export class ProductComponent implements OnInit {
   onSelectedProduct(event:any):void {
     this.product = Object.assign({},event);
   }
+
 }

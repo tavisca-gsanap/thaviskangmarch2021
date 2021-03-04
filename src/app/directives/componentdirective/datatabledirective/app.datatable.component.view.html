@@ -1,4 +1,11 @@
 <h6>Table Component Directive</h6>
+
+<div class="form-check">
+  <label class="form-check-label">
+     <input type="checkbox" [(ngModel)]="reverse" (change)="onreorder()"> Reverse
+  </label>
+</div>
+
 <table class="table table-bordered table-striped">
   <thead>
      <tr>
@@ -10,6 +17,7 @@
       <td *ngFor="let header of columnHeaders">
          {{row[header]}}
       </td>
+      <input type="button" value="Delete" class="btn btn-success" *ngIf="CanDelete" (click)="ondelete(row)">
     </tr>
   </tbody>
 </table>
