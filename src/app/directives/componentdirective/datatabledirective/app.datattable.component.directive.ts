@@ -10,6 +10,7 @@ export class DataTableComponent implements OnInit {
   private _CanDelete:boolean;
   columnHeaders:Array<string>;
   reverse:boolean;
+  color:string;
 
   // EventEmitter<any>, used to emit an event from component
   // <T> is a generic parameter that represent 'event arguments'
@@ -31,6 +32,7 @@ export class DataTableComponent implements OnInit {
     this.selectRow = new EventEmitter<any>();
     this.deleteRow = new EventEmitter<any>();
     this.reorder = new EventEmitter<boolean>();
+    this.color='';
   }
 
   ngOnInit(): void {
