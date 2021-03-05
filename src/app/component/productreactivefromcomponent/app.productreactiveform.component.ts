@@ -89,8 +89,9 @@ export class ProductReactiveFormComponent implements OnInit, OnChanges {
     console.log('On Init called');
     // read all properteis (aka keys) of ProductInfo class
     // and store them in coloumnHeaders
-    this.products = this.logic.getProducts();
     this.coloumnHeaders = Object.keys(this.product);
+
+    this.products = this.logic.getProducts();
 
   }
 
