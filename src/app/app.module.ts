@@ -30,6 +30,7 @@ import { ColorDirective } from "./directives/customattributedirective/app.color.
 
 // tyhe method used to register the Component as Custom HTML Element
 import { createCustomElement } from "@angular/elements";
+import { InputValidatorDirective } from './directives/customattributedirective/app.inputvalidator.directive';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { createCustomElement } from "@angular/elements";
     LifecycleParentComponent, LifecycleChildComponent,
     ProductReactiveFormComponent, ColorDirective,
     ListElementComponent,
-    ElementConsumerComponent
+    ElementConsumerComponent,InputValidatorDirective
   ],
   imports: [
     BrowserModule, FormsModule,ReactiveFormsModule,
@@ -49,9 +50,10 @@ import { createCustomElement } from "@angular/elements";
   //  the entryComponent will create a seperate registry
   // in NgModule so that some of the components will be
   // exposed as custom HTML element
-  entryComponents:[ListElementComponent],
+  entryComponents:[ListElementComponent],//DataTableComponent
   providers: [],
-  bootstrap: [ElementConsumerComponent]
+  bootstrap: [ProductReactiveFormComponent]
+  // [ElementConsumerComponent]
 })
 export class AppModule {
   constructor(private injector: Injector){
@@ -60,5 +62,9 @@ export class AppModule {
     const listElement = createCustomElement(ListElementComponent, {injector: this.injector});
     // define a developer friendly custom tag for it
     customElements.define('list-element', listElement);
+
+    // const tableElement = createCustomElement(DataTableComponent, {injector: this.injector});
+    // // define a developer friendly custom tag for it
+    // customElements.define('app-datatable-component', tableElement);
   }
 }

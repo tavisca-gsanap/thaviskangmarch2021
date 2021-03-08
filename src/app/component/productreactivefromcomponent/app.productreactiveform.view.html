@@ -10,7 +10,7 @@
           <div class="form-group" [setColor]="'black'">
               <label>Product Row Id</label>
               <!--bind the 'key' of the FormGroup with 'formControlName'-->
-              <input type="text" class="form-control" formControlName="ProductRowId">
+              <input type="text" class="form-control" formControlName="ProductRowId" [validate]="'product.ProductRowId'">
               <!--Evaluate validations-->
               <!--Check if the eleemnt is chnaged (dirty) and value is not valid or invalid-->
               <!-- The <FormGroup>.controls.<formControlName>.dirty, to check if element is changed
@@ -33,7 +33,7 @@
           </div>
           <div class="form-group">
             <label>Product  Id</label>
-            <input type="text" class="form-control" formControlName="ProductId"  >
+            <input type="text" class="form-control" formControlName="ProductId"  [validate]="frmgpProduct.controls.ProductId.value">
             <div class="alert alert-danger"
             *ngIf="frmgpProduct.controls.ProductId.dirty && !frmgpProduct.controls.ProductId.valid">
 
